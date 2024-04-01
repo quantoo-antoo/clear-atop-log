@@ -1,7 +1,13 @@
 #!/bin/bash
 
+#boolean, 
+# if 1 delete only atop logs older than a certain number of days, 
+# if 0 delete all atop logs (default 1) 
 CHECK_DATE=${1:-1}
+
+#integer, number of days for which atop logs are KEPT 
 DELETE_OLDER_THAN_DAYS=${2:-90}
+
 CURRENT_DATE=$(date +%s)
 
 if [ $CHECK_DATE -eq 1 ]; then
