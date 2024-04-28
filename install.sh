@@ -27,7 +27,7 @@ cp $(dirname "$0")/clear-atop-log.sh /mnt/root/clear-atop-log.sh
 
 #remove all instances of clear-atop-log.sh from crontab, 
 #then add clear-atop-log.sh to crontab with settings defined above
-if [ $(crontab -u root -l | grep -o clear-atop-log.sh | wc -l ) -gt 0 ]; then
+if [ $(cat /mnt/var/spool/cron/root | grep -o clear-atop-log.sh | wc -l ) -gt 0 ]; then
 	sed "/clear-atop-log.sh$/d" /mnt/var/spool/cron/root
 fi
 echo "$CRON_FIELDS_STRING /bin/bash /root/clear-atop-log.sh $CHECK_DATE $DELETE_OLDER_THAN_DAYS" >> /mnt/var/spool/cron/root
