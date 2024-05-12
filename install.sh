@@ -56,7 +56,7 @@ fi
 echo "$CRON_FIELDS_STRING /bin/bash /root/clear-atop-log.sh $DELETE_ALL_LOGS $DELETE_OLDER_THAN_DAYS" >> /mnt/var/spool/cron/root
 
 echo -e "\n"
-read -t 10 -p "Do you want to RUN the script NOW? (y/N): "
+read -t 5 -p "Do you want to RUN the script NOW? (y/N): "
 if [[ $REPLY =~ [yY] ]]; then
    /bin/bash /root/clear-atop-log-on-mnt.sh $DELETE_ALL_LOGS $DELETE_OLDER_THAN_DAYS
 fi
