@@ -1,7 +1,7 @@
 #!/bin/bash
 #must be run as superuser
 
-pacman -Sy archiso
+#pacman -Sy archiso
 
 rm -rf /tmp/archlive/
 mkdir /tmp/archlive/
