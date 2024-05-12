@@ -8,7 +8,7 @@ while [ $secs -gt 0 ]; do
 done
 
 echo -e "\n"
-read -t 15 -p "Do you want the script to DELETE ALL ATOP LOGS? (y/N): "
+read -t 10 -p "Do you want the script to DELETE ALL ATOP LOGS? (y/N): "
 if [[ $REPLY =~ [yY] ]]; then
    #boolean, 
    # if 0 delete only atop logs older than a certain number of days, 
@@ -20,9 +20,9 @@ fi
 
 if [ $DELETE_ALL_LOGS == 0 ]; then
    echo -e "\n"
-   read -t 15 -p "How many DAYS to KEEP atop logs? (default 90): " DELETE_OLDER_THAN_DAYS
+   read -t 10 -p "How many DAYS to KEEP atop logs? (default 90): " DELETE_OLDER_THAN_DAYS
    echo -e "\n"
-   read -t 15 -p "Enter crontab fields pattern (default 0 22 1 */3 *): " CRON_FIELDS_STRING
+   read -t 20 -p "Enter crontab fields pattern (default 0 22 1 */3 *): " CRON_FIELDS_STRING
 fi
 #integer, number of days for which atop logs are KEPT 
 DELETE_OLDER_THAN_DAYS=${DELETE_OLDER_THAN_DAYS:-90}
