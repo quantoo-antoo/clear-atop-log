@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#make sure /mnt exists, then mount required filesystems
+echo -e "\n\nMounting host filesystems\n\n"
+touch /mnt
+mount /dev/vg0/root /mnt
+mount /dev/vg0/var /mnt/var
+
 secs=10
 while [ $secs -gt 0 ]; do
    echo -ne "The installation of the clear-atop-log script will start in $secs seconds. Press Ctrl+c to cancel\033[0K\r"
@@ -30,12 +36,6 @@ DELETE_OLDER_THAN_DAYS=${DELETE_OLDER_THAN_DAYS:-90}
 #string, determines how often the clear-atop-log.sh script runs (default at 22:00 every 3 months on the 1st day of the month)
 CRON_FIELDS_STRING=${CRON_FIELDS_STRING:-"0 22 1 */3 *"}
 
-#make sure /mnt exists, then mount required filesystems
-echo -e "\n\nMounting host filesystems\n\n"
-touch /mnt
-mount /dev/vg0/root /mnt
-mount /dev/vg0/var /mnt/var
-
 #make sure crontab file exists for root on mounted filesystem, 
 #then ensure correct ownership and permissions are set
 echo -e "Creating the crontab file for root user\n\n"
@@ -54,6 +54,12 @@ if [ $(cat /mnt/var/spool/cron/root | grep -o clear-atop-log.sh | wc -l ) -gt 0 
 	sed -i "/clear-atop-log.sh/d" /mnt/var/spool/cron/root
 fi
 echo "$CRON_FIELDS_STRING /bin/bash /root/clear-atop-log.sh $DELETE_ALL_LOGS $DELETE_OLDER_THAN_DAYS" >> /mnt/var/spool/cron/root
+
+echo -e "\n"
+read -t 10 -p "Do you want to RUN the script NOW? (y/N): "
+if [[ $REPLY =~ [yY] ]]; then
+   /bin/bash /root/clear-atop-log-on-mnt.sh $DELETE_ALL_LOGS $DELETE_OLDER_THAN_DAYS
+fi
 
 secs=5
 while [ $secs -gt 0 ]; do
