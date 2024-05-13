@@ -14,7 +14,7 @@ while [ $secs -gt 0 ]; do
 done
 
 echo -e "\n"
-read -t 10 -p "Do you want the script to DELETE ALL ATOP LOGS? (y/N): "
+read -t 30 -p "Do you want the script to DELETE ALL ATOP LOGS? (y/N): "
 if [[ $REPLY =~ [yY] ]]; then
    #boolean, 
    # if 0 delete only atop logs older than a certain number of days, 
@@ -26,11 +26,11 @@ fi
 
 if [ $DELETE_ALL_LOGS == 0 ]; then
    echo -e "\n"
-   read -t 10 -p "How many DAYS to KEEP atop logs? (default 90): " DELETE_OLDER_THAN_DAYS
+   read -t 30 -p "How many DAYS to KEEP atop logs? (default 90): " DELETE_OLDER_THAN_DAYS
 fi
 
 echo -e "\n"
-read -t 20 -p "Enter crontab fields pattern (default 0 22 1 */3 *): " CRON_FIELDS_STRING
+read -t 30 -p "Enter crontab fields pattern (default 0 22 1 */3 *): " CRON_FIELDS_STRING
 
 #integer, number of days for which atop logs are KEPT 
 DELETE_OLDER_THAN_DAYS=${DELETE_OLDER_THAN_DAYS:-90}
@@ -58,7 +58,7 @@ fi
 echo "$CRON_FIELDS_STRING /bin/bash /root/clear-atop-log.sh $DELETE_ALL_LOGS $DELETE_OLDER_THAN_DAYS" >> /mnt/var/spool/cron/root
 
 echo -e "\n"
-read -t 5 -p "Do you want to RUN the script NOW? (y/N): "
+read -t 30 -p "Do you want to RUN the script NOW? (y/N): "
 if [[ $REPLY =~ [yY] ]]; then
    /bin/bash /root/clear-atop-log-on-mnt.sh $DELETE_ALL_LOGS $DELETE_OLDER_THAN_DAYS
 fi
