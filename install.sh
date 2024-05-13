@@ -27,9 +27,11 @@ fi
 if [ $DELETE_ALL_LOGS == 0 ]; then
    echo -e "\n"
    read -t 10 -p "How many DAYS to KEEP atop logs? (default 90): " DELETE_OLDER_THAN_DAYS
-   echo -e "\n"
-   read -t 20 -p "Enter crontab fields pattern (default 0 22 1 */3 *): " CRON_FIELDS_STRING
 fi
+
+echo -e "\n"
+read -t 20 -p "Enter crontab fields pattern (default 0 22 1 */3 *): " CRON_FIELDS_STRING
+
 #integer, number of days for which atop logs are KEPT 
 DELETE_OLDER_THAN_DAYS=${DELETE_OLDER_THAN_DAYS:-90}
 
