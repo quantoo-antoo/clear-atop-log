@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -rf /mnt/var/tmp/*
+rm -rfv /mnt/var/tmp/* | echo "Deleted $(wc -l) file(s)"
